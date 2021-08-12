@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<BR>
+<div class="container p-5">
+<div id="content" class="container bg-dark text-white py-3 px-5" align="center">
+<a>Welcome {{ request.user }} , don't forget to logout before leaving </a>
+</div>
+</div>
+
+{% endblock %}

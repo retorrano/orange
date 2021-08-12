@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<BR>
+
+<div class="container p-5">
+
+{% block content %}
+<BR>
+
+<div id="extra" class="container bg-light text-info py-3 px-5">
+    <table class="table table-hover table-fixed">
+        <thead class="thead-dark">
+        <tr align="center">
+        <th><a>Payables</a></th>
+        <th><a>Amount</a></th>
+        <th><a>Net Amount</a></th>
+        {% if user.is_staff %}<th><a>Update</a></th>{% endif %}
+        <th><a>Delete</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cash in extra_info_receivables %}
+        <tr align="center">
+        <td><a>{{ cash.description }}</a></td>
+        <td><a>{{ cash.amount }}</a></td>
+        <td><a>{{ cash.net_amount }}</a></td>
+        {% if user.is_staff %}<td><a id="{{ cash.id }}_update_button" ret="update_entry" title="Update Entry" class="btn btn-info update_btn" role="button" link="/guest/room/update/{{ cash.id }}/" >Update</a></td>{% endif %}
+        <td><a id="{{ cash.id }}_delete_button" ret="delete_entry" title="Delete Entry" class="btn del_btn" role="button" link="/guest/room/{{ cash.id }}/delete" >Delete</a></td>
+        </tr>
+        {% endfor %}
+        <tr align="center">
+        <td><a>Total</a></td>
+        <td><a>{{ total_receivables }}</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover table-secondary table-fixed">
+        <thead class="thead-light">
+        <tr align="center">
+        <th><a>Payments</a></th>
+        <th><a>Amount</a></th>
+        <th><a>Action</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cash in extra_info_payments %}
+        <tr align="center">
+        <td><a>{{ cash.description }}</a></td>
+        <td><a>{{ cash.amount }}</a></td>
+        <td><a id="{{ cash.id }}_delete_button" ret="delete_entry" title="Delete Entry" class="btn btn-warning del_btn" role="button" link="/guest/room/{{ cash.id }}/delete" >Delete</a></td>
+        </tr>
+        {% endfor %}
+        <tr align="center">
+        <td><a>Total</a></td>
+        <td><a>{{ total_payments }}</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover table-secondary table-fixed">
+        <thead class="thead-light">
+        <tr align="center">
+        <th><a>Discounts</a></th>
+        <th><a>Amount</a></th>
+        <th><a>Approved</a></th>
+        <th><a>Action</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for discount in extra_info_discounts %}
+        <tr align="center">
+        <td><a>{{ discount.description }}</a></td>
+        <td><a>{{ discount.amount }}</a></td>
+        <td><a>{{ discount.approved }}</a></td>
+        <td><a id="{{ discount.id }}_delete_button" ret="delete_entry" title="Delete Entry" class="btn btn-warning del_btn" role="button" link="/guest/discount/{{ discount.id }}/delete" >Delete</a></td>
+        </tr>
+        {% endfor %}
+        <tr align="center">
+        <td><a>Total</a></td>
+        <td><a>{{ total_discounts }}</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover table-dark table-fixed">
+        <thead class="thead-light">
+        <tr align="center">
+        <th><a>Balances</a></th>
+        <th><a>{{ balance }}</a></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<BR>
+<div id="content" class="container bg-white text-white py-3 px-5">
+<div class="center">
+<a id="room_accomodation_button" ret="room_accomodation_form" title="Room Accomodation Form" class="btn btn-primary add_btn" role="button">Room Accomodation</a>
+<a id="room_extras_button" ret="room_extras_form" title="Room Extras Form" class="btn btn-primary add_btn" role="button">Room Extras</a>
+<a id="room_payments_button" ret="room_payments_form" title="Room Payment Form" class="btn btn-primary add_btn" role="button">Payment</a>
+<BR>
+<BR>
+<a id="discounts_button" ret="discounts_form" title="Discount Form" class="btn btn-primary add_btn" role="button">Discount</a>
+
+<a id="credit_button" ret="credit_form" title="Credit Form" class="btn btn-primary add_btn" role="button">Credits</a>
+<a id="print_button" class="btn btn-primary add_btn" role="button" loc="/guest/pdf/?uuid={{ uuid }}&trans={{ trans }}">Print</a>
+</div>
+</div>
+<div id="room_accomodation_form" style="display:none">
+<object data="/guest/room/accomodation/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700">
+    <embed src="/guest/room/accomodation/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700"> </embed>
+</object>
+</div>
+<div id="room_extras_form" style="display:none">
+<object data="/guest/room/extra/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700">
+    <embed src="/guest/room/extra/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700"> </embed>
+</object>
+</div>
+<div id="room_payments_form" style="display:none">
+<object data="/guest/room/payment/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700">
+    <embed src="/guest/room/payment/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700"> </embed>
+</object>
+</div>
+<div id="discounts_form" style="display:none">
+    <object data="/guest/discount/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700">
+        <embed src="/guest/discount/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700"> </embed>
+    </object>
+</div>
+<div id="credit_form" style="display:none">
+    <object data="/guest/credit/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700">
+        <embed src="/guest/credit/?uuid={{ uuid }}&trans={{ trans }}" width="600" height="700"> </embed>
+    </object>
+</div>
+<div id="delete_entry" style="display:none">
+<object id="delete_object"  data="/" width="600" height="700">
+    <embed id="delete_embed" src="/" width="600" height="700"> </embed>
+</object>
+</div>
+<div id="update_entry" style="display:none">
+<object id="update_object"  data="/" width="600" height="700">
+    <embed id="update_embed" src="/" width="600" height="700"> </embed>
+</object>
+</div>
+<script src="/static/mano/miscellaneous.js"></script>
+{% endblock %}

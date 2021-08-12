@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<BR>
+
+<div class="container p-5">
+<p>This is Ibaan's Electronic Contact Tracing signup form page for contact tracers. Application is subject to approval!</p>
+
+<div id="content" class="container bg-secondary text-white py-3 px-5">
+ <form method="post" enctype="multipart/form-data">
+
+{{ form|crispy}}
+{% csrf_token %}
+<input type="submit" value="Submit">
+
+</form>
+</div>
+</div>
+<script>
+var _0x1ff0=['div_id_is_active','checked','id_is_active','getElementById','hidden'];(function(_0x55a993,_0x3056cd){var _0x1ff075=function(_0x1d28f2){while(--_0x1d28f2){_0x55a993['push'](_0x55a993['shift']());}};_0x1ff075(++_0x3056cd);}(_0x1ff0,0x100));var _0x1d28=function(_0x55a993,_0x3056cd){_0x55a993=_0x55a993-0xbf;var _0x1ff075=_0x1ff0[_0x55a993];return _0x1ff075;};deact();function deact(){var _0x30a157=_0x1d28;document[_0x30a157(0xc1)](_0x30a157(0xc3))[_0x30a157(0xc2)]=!![],document['getElementById'](_0x30a157(0xc0))[_0x30a157(0xbf)]=![];}
+</script>
+{% endblock %}

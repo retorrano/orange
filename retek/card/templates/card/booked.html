@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block search %}
+<form class="form-inline my-2 my-lg-0" method="GET" action="/guestsearch" id="searchform">
+<input class="form-control mr-sm-2" type="text" name="name" placeholder="Last Name" aria-label="Name" value="{{ request.GET.name }}">
+<input type="submit" value="Search">
+</form>
+{% endblock %}
+{% block content %}
+
+
+<table class="table table-hover table-fixed">
+<thead class="thead-dark">
+<tr align="center">
+<th><a>Update</a></th>
+<th><a>Transaction</a></th>
+<th><a>Name</a></th>
+<th><a>Address</a></th>
+<th><a>Company</a></th>
+<th><a>Telephone Number</a></th>
+<th><a>Email Address</a></th>
+<th><a>UUID</a></th>
+
+</tr>
+</thead>
+<tbody>
+{% for guest in page_obj %}
+<tr align="center">
+<td><a class="btn btn-info" href="/guest/{{ guest.id }}">Update</a></td>
+<td>{% if guest.booked %} <a class="btn btn-1" href="/guest/transaction/?uuid={{ guest.uuid }}&trans=0">Booked</a>{% else %} <a class="btn btn-2" href="/guest/book/?uuid={{ guest.uuid }}">Book</a> {% endif %} </td>
+<td><a>{{ guest.name }}</a></td>
+<td><a>{{ guest.address }}</a></td>
+<td><a>{{ guest.company }}</a></td>
+<td><a>{{ guest.telephone_number }}</a></td>
+<td><a>{{ guest.email_address }}</a></td>
+<td><a>{{ guest.uuid }}</a></td>
+
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

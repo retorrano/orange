@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="/static/mano/bootstrap.min.css">
+<link rel="stylesheet" href="/static/mano/jquery-ui.css">
+<link rel="stylesheet" href="/static/mano/miscellaneous.css">
+<script src="/static/mano/jquery-3.6.0.min.js"></script>
+<script src="/static/mano/bootstrap.min.js"></script>
+<script src="/static/mano/jquery-ui.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container">
+    {% block framed %}
+
+    {% if not_framed %}
+    
+    {% if user.is_authenticated %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+        <a class="nav-link" href="/" id="navbarDropdown" aria-haspopup="true" aria-expanded="false">
+        Home
+        </a>        
+        </li>
+        {% if user.is_superuser %}
+        <li class="nav-item dropdown">
+        <a class="nav-link" href="/admin" id="navbarDropdown" aria-haspopup="true" aria-expanded="false">
+        Admin
+        </a>        
+        </li>
+        {% endif %}
+        {% if user.is_staff %}
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Overides
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/File">Guest</a>
+        </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Card
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/card">Card</a>
+        <a class="dropdown-item" href="/card/add">Add Card</a>
+        <a class="dropdown-item" href="/card/reader">Card Reader</a>
+        
+        </li>
+        
+        <li class="nav-item dropdown">
+        <a class="nav-link" href="{% url 'logout' %}" id="navbarDropdown" aria-haspopup="true" aria-expanded="false">
+        Logout
+        </a>        
+        </li>
+        
+        </ul>
+
+        {% block search %}
+
+        {% endblock%}
+        </div>
+        </nav>      
+        {% endif %}  
+        {% endif %}
+        {% endblock %}        
+    </div>
+<div id="content" class="container-responsive">
+    
+{% block content %}
+
+{% endblock %}
+</div>
+
+</body>
+</html>

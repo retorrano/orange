@@ -1,0 +1,39 @@
+.center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .add_btn {
+      width: 200px;
+  }
+  .del_btn {
+      background-color: red;
+  }
+  .update_btn {
+    background-color: royalblue;
+  }
+  .ovr_btn {
+    background-color: yellow;
+  }
+  .btn-1{
+    background-color: yellow;
+  }
+  btn-2{
+    background-color: transparent;
+  }
+  tr:nth-child(even){
+    background-color: lightgreen;
+  }
+  tr:nth-child(odd){
+    background-color: white;
+  }
+  tr:hover{
+    background-color: tomato;
+  }
+  .title{
+    color: black;
+    font-weight: bolder;
+    font-size: large;
+  }

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<BR>
+
+<div class="container p-5">
+
+{% block content %}
+<BR>
+<div id="content" class="container bg-secondary text-white py-3 px-5">
+<BR>
+<form method="post" enctype="multipart/form-data">
+{{ form|crispy}}
+{% csrf_token %}
+<BR>
+<input type="submit" value="Submit">
+
+</form>
+</div>
+</div>
+<script src="/static/mano/miscellaneous.js"></script>
+{% endblock %}
